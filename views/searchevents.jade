@@ -1,0 +1,103 @@
+extends layout
+
+
+block head-content
+  meta(http-equiv='Content-type', content='text/html; charset=utf-8')
+  meta(name='viewport', content='width=device-width,initial-scale=1')
+  script(type='text/javascript', language='javascript', src='https://code.jquery.com/jquery-1.12.4.js')
+  link(rel='stylesheet', type='text/css', href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css')
+  script(type='text/javascript', language='javascript', src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js')
+  script.init(type='text/javascript').
+      var data = getDataFromParams(!{tableData});
+      var stage = '!{stage}';
+      $(document).ready(function () {
+        $('#submitbutton').on('click', function() {
+            if ($('#inputTitle').val().length === 0 && $('#inputLocation').val().length === 0 && $('#inputDate').val().length === 0) {
+                alert('Fill in at least one field to search');
+            }
+            else {
+                $('#searchform').submit();
+            }
+        });
+
+        $('#home').on('click', function () {
+            window.location = stage + '/';
+        });
+
+        if (getDataOrUndefined) {
+            var table = $('#example').DataTable(data);
+
+            $('#example tbody').on('click', 'tr', function () {
+
+                var data = table.row($(this)).data();
+                location.href = stage + '/events/' + data[0];
+
+            });
+        }
+      });
+
+      function getDataFromParams(data) {
+          if (data) {
+              return data;
+          } else {
+              return '';
+          }
+      }
+
+      function getDataOrUndefined(data) {
+          if (data) {
+              return data;
+          } else {
+              return undefined;
+          }
+      }
+
+
+block content
+  .container
+  h1.text-center Search Event!
+  hr
+  button#home.btn Home
+  form#searchform(name="searchevents", action=stage + '/searchevents/events', method="get")
+    h2.form-signin-heading Search Event
+
+    label(for='inputTitle') Title
+    input#inputTitle.form-control(name='title' type='text', placeholder='Event title', autofocus='')
+
+    label(for='inputLocation') Location
+    input#inputLocation.form-control(name='location' type='text', placeholder='Location')
+
+    label(for='inputDate') Date
+    input#inputDate.form-control(name='human_date' type='date', placeholder='Date')
+
+  button#submitbutton.btn.btn-lg.btn-primary.btn-block  Search
+
+
+  h3.text-center Events
+    hr
+    if eventCreated !== undefined
+      if eventCreated === 'true'
+        h3.alert.alert-info.text-center Event created successfully!
+      else
+        h3.alert.alert-danger.text-center Failed to create new event!
+    if !(errorMessage)
+        table#example.display(cellspacing='0', width='100%')
+          thead
+            tr
+              th ID
+              th Name
+              th Location
+              th Date
+              th Time
+              th Tickets
+          tfoot
+            tr
+              th ID
+              th Name
+              th Location
+              th Date
+              th Time
+              th Tickets
+    else
+        h3.alert.text-center !{errorMessage}
+

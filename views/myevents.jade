@@ -1,0 +1,76 @@
+extends layout
+block head-content
+    meta(http-equiv='Content-type', content='text/html; charset=utf-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1')
+    link(rel='stylesheet', type='text/css', href='https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css')
+    script(type='text/javascript', language='javascript', src='https://code.jquery.com/jquery-1.12.4.js')
+    script(type='text/javascript', language='javascript', src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js')
+    script.init(type='text/javascript').
+        var data = getDataFromParams(!{tableData});
+        var stage = '!{stage}';
+        $(document).ready(function () {
+
+            var table = $('#example').DataTable(data);
+
+            $('#example tbody').on('click', 'tr', function () {
+
+                var data = table.row($(this)).data();
+                location.href = stage + '/myevents/' + data[0];
+
+                //alert(data[0]);
+
+
+            });
+
+            $('#home').on('click', function () {
+                window.location = stage + '/';
+            });
+
+            $('#new_event').on('click', function() {
+                window.location = stage + '/createevent';
+            });
+
+            $('#events_history').on('click', function () {
+                window.location = stage + '/myevents/history';
+            });
+
+        });
+
+
+        function getDataFromParams(data) {
+            if (data) {
+                return data;
+            } else {
+                return '';
+            }
+        }
+
+block content
+    .container
+        h1.text-center My Events!
+        hr
+        if eventCreated !== undefined
+            if eventCreated === 'true'
+                h3.alert.alert-info.text-center Event created successfully!
+            else
+                h3.alert.alert-danger.text-center Failed to create new event!
+        button#home.btn Home
+        button#events_history.btn My Events History
+        table#example.display(cellspacing='0', width='100%')
+            thead
+                tr
+                    th ID
+                    th Name
+                    th Location
+                    th Date
+                    th Time
+                    th Tickets
+            tfoot
+                tr
+                    th ID
+                    th Name
+                    th Location
+                    th Date
+                    th Time
+                    th Tickets
+        button#new_event.btn Create Event
