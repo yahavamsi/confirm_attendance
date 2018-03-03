@@ -2,10 +2,11 @@ extends layout
 
 block content
   .container
-    form.form-control.form-signin(action='/', method='post')
-      h2(dir='rtl').form-signin-heading ברוכים הבאים!
-      input#guest_id(type='hidden' value= id, name='id')
-      label(dir='rtl').sr-only מספר אורחים שמגיעים
-      input#inputNumOfGuests.form-control(dir='rtl' name='guests' type='number', placeholder='מספר אורחים', min="0", max="10", required='true', autofocus='true')
-      button.btn.btn-lg.btn-primary.btn-block(type='submit') שלח
-      br
+    form(action='/', method='post')
+      div.form-group
+        h2(dir='rtl').form-signin-heading ברוכים הבאים!
+        input#guest_id.form-control(type='hidden' value= id, name='id')
+        label(dir='rtl').sr-only מספר אורחים שמגיעים
+        input#inputNumOfGuests.form-control(dir='rtl' name='guests' type='number', placeholder='מספר אורחים', min="0", max="10", required='true', autofocus='true')
+        button(dir='rtl').btn.btn-primary(type='submit') שלח
+        br
