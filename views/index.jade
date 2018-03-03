@@ -2,11 +2,25 @@ extends layout
 
 block content
   .container
+    meta(name="viewport" content="width=device-width, initial-scale=0")
+    h2(dir='rtl') ברוכים הבאים!
     form(action='/', method='post')
       div.form-group
-        h2(dir='rtl').form-signin-heading ברוכים הבאים!
         input#guest_id.form-control(type='hidden' value= id, name='id')
-        label(dir='rtl').sr-only מספר אורחים שמגיעים
-        input#inputNumOfGuests.form-control(dir='rtl' name='guests' type='number', placeholder='מספר אורחים', min="0", max="10", required='true', autofocus='true')
-        button(dir='rtl').btn.btn-primary(type='submit') שלח
-        br
+      div.form-group
+        label(dir='rtl' for='inputNumOfGuests') מספר אורחים שמגיעים
+        select#inputNumOfGuests.form-control(dir='rtl' name='guests' type='number', placeholder='מספר אורחים', min="0", max="10", required='true', autofocus='true')
+          option לא מגיעים
+          option 1
+          option 2
+          option 3
+          option 4
+          option 5
+          option 6
+          option 7
+          option 8
+          option 9
+          option 10
+      div.form-group
+        center
+          button.btn.btn-primary(type='submit') שלח
