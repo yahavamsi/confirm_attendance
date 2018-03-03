@@ -43,6 +43,7 @@ router.get('/:id', function(req, res, next) {
                         res.render('index', {'id': id});
                     } else {
                         // ID not found - put a not found page
+                        res.render('invalid_id');
                     }
                 }
 
