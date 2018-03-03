@@ -6,15 +6,16 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "guid": "^0.0.12",
+    "aws-serverless-express": "^3.0.0",
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
-    "jade": "~1.11.0",
-    "morgan": "^1.8.2",
     "express-session": "~1.15.4",
-    "aws-serverless-express": "^3.0.0",
+    "guid": "^0.0.12",
+    "jade": "~1.11.0",
+    "mongodb": "^3.0.3",
+    "morgan": "^1.8.2",
     "request": "^2.81.0"
   }
 }

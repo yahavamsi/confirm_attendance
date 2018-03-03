@@ -8,15 +8,32 @@ const express = require('express');
 const router = express.Router();
 const expressSession = require('express-session');
 const config = require('../config');
-const sessionValidator = require('../tools/session-validator');
-const ApiCaller = require('../tools/data-api');
 
 router.use(expressSession({secret:'somesecrettokenhere',
                            saveUninitialized: true,
                            resave: true}));
 
 
-router.get('/', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
+    id = req.params.id;
+    // TODO: put here the code for verifying mongo id (legal guest)
+    const MongoClient = require('mongodb').MongoClient;
+    const url = process.env.MONGO_URL;
+
+
+
+    res.render('index', {id: req.params.id});
+});
+
+router.post('/', function(req, res, next) {
+    id = req.body.id;
+    // TODO: put here the code for updating mongo with guest data
+    res.render('index');
+});
+
+
+
+/*router.get('/', function(req, res, next) {
   let sess = req.session;
 
   if (sess.email) {
@@ -44,6 +61,6 @@ router.get('/', function(req, res, next) {
                             logoutSuccessful: logoutSuccessfulInQuery});
   }
 
-});
+});*/
 
 module.exports = router;
