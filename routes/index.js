@@ -8,6 +8,7 @@ const express = require('express');
 const router = express.Router();
 const expressSession = require('express-session');
 const config = require('../config');
+const MongoClient = require('mongodb').MongoClient;
 
 router.use(expressSession({secret:'somesecrettokenhere',
                            saveUninitialized: true,
@@ -15,15 +16,9 @@ router.use(expressSession({secret:'somesecrettokenhere',
 
 
 router.get('/:id', function(req, res, next) {
-    id = req.params.id;
-    // TODO: put here the code for verifying mongo id (legal guest)
-    const MongoClient = require('mongodb').MongoClient;
+    const id = req.params.id;
     const url = process.env.MONGO_URL;
 
-    // Database Name
-    //const dbName = 'myproject';
-
-    // Use connect method to connect to the Server
     MongoClient.connect(url, function(err, client) {
         if (err) {
             console.log("Error on mongo connection: " + err.message)
@@ -32,14 +27,13 @@ router.get('/:id', function(req, res, next) {
 
             const db = client.db('guests');
 
-            // Insert a single document
             db.collection('guests').findOne({"id": id}, function (err, guest_doc) {
                 if (err) {
                     console.log("Error getting ID " + id + " message:" + err.message)
                 } else {
                     if (guest_doc) {
                         // Found ID - OK!
-                        console.log(guest_doc)
+                        console.log(guest_doc);
                         res.render('index', {'id': id});
                     } else {
                         // ID not found - put a not found page
@@ -56,17 +50,11 @@ router.get('/:id', function(req, res, next) {
 router.post('/', function(req, res, next) {
     const id = req.body.id;
     const guest_count = req.body.guests;
-    // TODO: put here the code for updating mongo with guest data
-    const MongoClient = require('mongodb').MongoClient;
     const url = process.env.MONGO_URL;
 
-    // Database Name
-    //const dbName = 'myproject';
-
-    // Use connect method to connect to the Server
     MongoClient.connect(url, function(err, client) {
         if (err) {
-            console.log("Error on mongo connection: " + err.message)
+            console.log("Error on mongo connection: " + err.message);
             res.render('invalid_id'); //TODO: replace with error page
         } else {
             console.log("Connected correctly to server");
@@ -80,7 +68,7 @@ router.post('/', function(req, res, next) {
                 } else {
                     if (guest_doc) {
                         // Found ID - OK!
-                        console.log(guest_doc)
+                        console.log(guest_doc);
                         res.render('success');
                     } else {
                         // ID not found - put a not found page
