@@ -7,15 +7,6 @@ const expressSession = require('express-session');
 
 // Routers
 const index = require('./routes/index');
-const signup = require('./routes/signup');
-const login = require('./routes/login');
-const logout = require('./routes/logout');
-const event = require('./routes/event');
-const myevents = require('./routes/myevents');
-const createEvent = require('./routes/create-event');
-const buyTicket = require('./routes/buyticket');
-const myTickets = require('./routes/mytickets');
-const searchEvents = require('./routes/searchevents');
 
 const app = express();
 
@@ -33,15 +24,6 @@ app.use(expressSession({secret:'somesecrettokenhere',
 
 // routes
 app.use('/', index);
-app.use('/signup', signup);
-app.use('/login', login);
-app.use('/logout', logout);
-app.use('/events', event);
-app.use('/myevents', myevents);
-app.use('/createevent', createEvent);
-app.use('/buyticket', buyTicket);
-app.use('/mytickets', myTickets);
-app.use('/searchEvents', searchEvents);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
