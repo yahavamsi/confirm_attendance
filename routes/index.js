@@ -10,6 +10,8 @@ const expressSession = require('express-session');
 const config = require('../config');
 const MongoClient = require('mongodb').MongoClient;
 
+const mongo_url = process.env.MONGO_URL;
+
 router.use(expressSession({secret:'somesecrettokenhere',
                            saveUninitialized: true,
                            resave: true}));
@@ -17,9 +19,8 @@ router.use(expressSession({secret:'somesecrettokenhere',
 
 router.get('/:id', function(req, res, next) {
     const id = req.params.id;
-    const url = process.env.MONGO_URL;
 
-    MongoClient.connect(url, function(err, client) {
+    MongoClient.connect(mongo_url, function(err, client) {
         if (err) {
             console.log("Error on mongo connection: " + err.message)
         } else {
@@ -50,9 +51,8 @@ router.get('/:id', function(req, res, next) {
 router.post('/', function(req, res, next) {
     const id = req.body.id;
     const guest_count = req.body.guests;
-    const url = process.env.MONGO_URL;
 
-    MongoClient.connect(url, function(err, client) {
+    MongoClient.connect(mongo_url, function(err, client) {
         if (err) {
             console.log("Error on mongo connection: " + err.message);
             res.render('invalid_id'); //TODO: replace with error page
@@ -81,37 +81,5 @@ router.post('/', function(req, res, next) {
         }
     });
 });
-
-
-
-/*router.get('/', function(req, res, next) {
-  let sess = req.session;
-
-  if (sess.email) {
-      sessionValidator.validate(sess.email, sess.sessiontoken, function (success) {
-          if (success) {
-              ApiCaller.getTodayEvents(function(err, events) {
-                  res.render('home', {
-                      title: 'CloudTicket',
-                      stage: config.stageInWebURL,
-                      tableData: '{"data":' + events + '}'
-                  });
-              });
-          } else {
-              sess.email = undefined;
-              res.redirect(config.stageInWebURL + '/');
-          }
-      });
-
-  } else {
-      let loginFailedInQuery = req.query.loginFailed;
-      let logoutSuccessfulInQuery = req.query.logoutSuccessful;
-      res.render('login', { title: 'Express',
-                            stage: config.stageInWebURL,
-                            loginFailed: loginFailedInQuery,
-                            logoutSuccessful: logoutSuccessfulInQuery});
-  }
-
-});*/
 
 module.exports = router;
