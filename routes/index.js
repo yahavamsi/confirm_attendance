@@ -49,7 +49,11 @@ router.get('/:id', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
     const id = req.body.id;
-    const guest_count = req.body.guests;
+    const set_details = {
+        "adults": req.body.adults,
+        "children": req.body.children,
+        "veg": req.body.veg
+    };
 
     MongoClient.connect(mongo_url, function(err, client) {
         if (err) {
@@ -61,7 +65,7 @@ router.post('/', function(req, res, next) {
             const db = client.db('guests');
 
             // Insert a single document
-            db.collection('guests').updateOne({"id": id}, {"$set": {"count": guest_count}}, function (err, guest_doc) {
+            db.collection('guests').updateOne({"id": id}, {"$set": set_details}, function (err, guest_doc) {
                 if (err) {
                     console.log("Error getting ID " + id + " message:" + err.message)
                 } else {
