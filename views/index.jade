@@ -1,13 +1,18 @@
 extends layout
 block head-content
-  -  var hello = "שלום " + message
+  -  var hello = "שלום " + message + "!"
   -  var intro = "נשמח לראותכם בחתונתינו"
+  -  var details = "ביום שישי ה-15.6.18 ב'פיין קלאב'"
+  -  var confirm = "נא אשרו הגעתכם:"
 
 block content
   .container
-    h2(dir='rtl')= hello
+    h3(dir='rtl')= hello
     br
     h4(dir='rtl')= intro
+    h5(dir='rtl')= details
+    br
+    h5(dir='rtl')= confirm
     form(action='/', method='post')
       div.form-group
         input#guest_id.form-control(type='hidden' value= id, name='id')
