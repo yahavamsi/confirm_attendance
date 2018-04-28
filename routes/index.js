@@ -19,7 +19,6 @@ router.use(expressSession({secret:'somesecrettokenhere',
 
 router.get('/:id', function(req, res, next) {
     const id = req.params.id;
-
     MongoClient.connect(mongo_url, function(err, client) {
         if (err) {
             console.log("Error on mongo connection: " + err.message)
@@ -35,7 +34,7 @@ router.get('/:id', function(req, res, next) {
                     if (guest_doc) {
                         // Found ID - OK!
                         console.log(guest_doc);
-                        res.render('index', {'id': id});
+                        res.render('index', {'id': id, 'name': guest_doc.name});
                     } else {
                         // ID not found - put a not found page
                         res.render('invalid_id');
