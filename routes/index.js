@@ -34,7 +34,7 @@ router.get('/:id', function(req, res, next) {
                     if (guest_doc) {
                         // Found ID - OK!
                         console.log(guest_doc);
-                        res.render('index', {'id': id, 'name': guest_doc.name});
+                        res.render('index', {'id': id, 'message': guest_doc.message});
                     } else {
                         // ID not found - put a not found page
                         res.render('invalid_id');
