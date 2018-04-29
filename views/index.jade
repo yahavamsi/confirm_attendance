@@ -4,11 +4,14 @@ block head-content
   -  var intro = "נשמח לראותכם בחתונתינו"
   -  var details = "ביום שישי ה-15.6.18 ב'פיין קלאב'"
   -  var confirm = "נא אשרו הגעתכם:"
+  -  var press_here = "לחץ כאן לבחירה..."
+  script function checkform() {if (document.confirmation.adults.value == '#{press_here}') {alert('נא לציין מספר מבוגרים שמגיעים!'); return false}; return true;}
 
 block content
   .container
     style.
       body {
+        font-family: Impact;
         color: darkblue;
         background: #FFF7C6;
       }
@@ -18,12 +21,13 @@ block content
     h5(dir='rtl')= details
     br
     h5(dir='rtl')= confirm
-    form(action='/', method='post')
+    form(name='confirmation', action='/', method='post', onsubmit="return checkform()")
       div.form-group
         input#guest_id.form-control(type='hidden' value= id, name='id')
       div.form-group
         label(dir='rtl' for='inputNumOfAdults') מספר מבוגרים שמגיעים (מעל גיל 13)
         select#inputNumOfAdults.form-control(dir='rtl' name='adults', required='true', autofocus='true')
+          option(disabled selected) #{press_here}
           option לא מגיעים
           option 1
           option 2
@@ -38,7 +42,7 @@ block content
         br
         label(dir='rtl' for='inputNumOfChildren') מספר ילדים שמגיעים (מעל גיל 3)
         select#inputNumOfChildren.form-control(dir='rtl' name='children', required='true', autofocus='false')
-          option לא מגיעים
+          option 0
           option 1
           option 2
           option 3
