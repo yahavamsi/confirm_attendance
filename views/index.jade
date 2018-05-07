@@ -2,7 +2,7 @@ extends layout
 block head-content
   -  var hello = "שלום " + message + "!"
   -  var intro = "נשמח לראותכם בחתונתנו"
-  -  var details = "יום שישי ה-15.6.18 ב'פיין קלאב'"
+  -  var details = "ביום שישי ה-15.6.18 ב'פיין קלאב'"
   -  var confirm = "נא אשרו הגעתכם:"
   -  var press_here = "לחץ כאן לבחירה..."
   script function checkform() {if (document.confirmation.adults.value == '#{press_here}') {alert('נא לציין מספר מבוגרים שמגיעים!\n(יש שם גם אפשרות של \"לא מגיעים\")'); return false}; return true;}
