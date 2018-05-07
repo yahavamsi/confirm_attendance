@@ -1,20 +1,14 @@
 extends layout
 block head-content
   -  var hello = "שלום " + message + "!"
-  -  var intro = "נשמח לראותכם בחתונתינו"
-  -  var details = "ביום שישי ה-15.6.18 ב'פיין קלאב'"
+  -  var intro = "נשמח לראותכם בחתונתנו"
+  -  var details = "יום שישי ה-15.6.18 ב'פיין קלאב'"
   -  var confirm = "נא אשרו הגעתכם:"
   -  var press_here = "לחץ כאן לבחירה..."
-  script function checkform() {if (document.confirmation.adults.value == '#{press_here}') {alert('נא לציין מספר מבוגרים שמגיעים!'); return false}; return true;}
+  script function checkform() {if (document.confirmation.adults.value == '#{press_here}') {alert('נא לציין מספר מבוגרים שמגיעים!\n(יש שם גם אפשרות של \"לא מגיעים\")'); return false}; return true;}
 
 block content
   .container
-    style.
-      body {
-        font-family: Impact;
-        color: darkblue;
-        background: #FFF7C6;
-      }
     h3(dir='rtl')= hello
     br
     h4(dir='rtl')= intro
@@ -24,22 +18,24 @@ block content
     form(name='confirmation', action='/', method='post', onsubmit="return checkform()")
       div.form-group
         input#guest_id.form-control(type='hidden' value= id, name='id')
+        input#guest_message.form-control(type='hidden' value= message, name='guest_message')
       div.form-group
         label(dir='rtl' for='inputNumOfAdults') מספר מבוגרים שמגיעים (מעל גיל 13)
-        select#inputNumOfAdults.form-control(dir='rtl' name='adults', required='true', autofocus='true')
-          option(disabled selected) #{press_here}
-          option לא מגיעים
-          option 1
-          option 2
-          option 3
-          option 4
-          option 5
-          option 6
-          option 7
-          option 8
-          option 9
-          option 10
-        br
+        div
+          select#inputNumOfAdults.form-control(dir='rtl' name='adults', required='true', autofocus='true')
+            option(disabled selected) #{press_here}
+            option לא מגיעים
+            option 1
+            option 2
+            option 3
+            option 4
+            option 5
+            option 6
+            option 7
+            option 8
+            option 9
+            option 10
+      div.form-group
         label(dir='rtl' for='inputNumOfChildren') מספר ילדים שמגיעים (מעל גיל 3)
         select#inputNumOfChildren.form-control(dir='rtl' name='children', required='true', autofocus='false')
           option 0
@@ -53,8 +49,8 @@ block content
           option 8
           option 9
           option 10
-        br
-        label(dir='rtl' for='inputNumOfVeg') כמה מנות צמחוניות תרצו?
+      div.form-group
+        label(dir='rtl' for='inputNumOfVeg') כמה מנות צמחוניות/טבעוניות תרצו?
         select#inputNumOfVeg.form-control(dir='rtl' name='veg', required='true', autofocus='false')
           option 0
           option 1
@@ -71,3 +67,4 @@ block content
         center
           button.btn.btn-primary(type='submit') שלח
       h4(dir='rtl' align='left') תודה, יהב ואורין
+      h6(dir='rtl' align='left') משפחות אמסלם ומסד

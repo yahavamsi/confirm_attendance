@@ -49,6 +49,7 @@ router.get('/:id', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
     const id = req.body.id;
+    const message = req.body.guest_message;
     const set_details = {
         "adults": req.body.adults,
         "children": req.body.children,
@@ -72,7 +73,13 @@ router.post('/', function(req, res, next) {
                     if (guest_doc) {
                         // Found ID - OK!
                         console.log(guest_doc);
-                        res.render('success');
+                        res.render('success',
+                            {
+                                message: message,
+                                adults: set_details.adults,
+                                children: set_details.children,
+                                veg: set_details.veg
+                            });
                     } else {
                         // ID not found - put a not found page
                         res.render('invalid_id');

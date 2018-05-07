@@ -3,7 +3,14 @@ html
   head
     title= title
     link(rel='stylesheet', href='https://cdn.rtlcss.com/bootstrap/v4.0.0/css/bootstrap.min.css')
+    script(href='https://cdn.rtlcss.com/bootstrap/v4.0.0/js/bootstrap.min.js')
     meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
     block head-content
   body
+    style.
+      body {
+        font-family: Arial;
+        color: darkblue;
+        background-image: url("background.jpg");
+      }
     block content

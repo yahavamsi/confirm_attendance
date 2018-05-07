@@ -22,8 +22,12 @@ app.use(expressSession({secret:'somesecrettokenhere',
                         saveUninitialized: true,
                         resave: true}));
 
+app.use(express.static('public'));
+
 // routes
 app.use('/', index);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

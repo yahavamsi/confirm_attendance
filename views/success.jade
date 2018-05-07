@@ -1,4 +1,19 @@
 extends layout
 
+block head-content
+  -  var title_1 = message + ","
+  -  var title_2 = "אישור ההגעה שלכם נשלח בהצלחה!"
+  -  var got_that = "קיבלנו ש"
+  -  var not_arriving = "אינכם מגיעים :(, אבל מעולה שהודעתם לנו :)"
+  -  var processed_children = (children == 0) ? "ללא" : children
+  -  var arriving = "אתם מגיעים " + adults + " מבוגרים, " + processed_children + " ילדים וברצונכם לקבל " + veg + " מנות צמחוניות / טבעוניות."
+  -  var arrive_message = (adults === "לא מגיעים") ? not_arriving : arriving
+  -  var final_message = got_that + arrive_message
+
 block content
-  h1(dir='rtl') הצלחה :)
+  h5(dir='rtl')= title_1
+  h5(dir='rtl')= title_2
+  h6(dir='rtl')=  final_message
+  br
+  h4(dir='rtl' align='left')  תודה, יהב ואורין
+
