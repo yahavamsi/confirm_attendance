@@ -12,6 +12,8 @@ const MongoClient = require('mongodb').MongoClient;
 
 const mongo_url = process.env.MONGO_URL;
 
+const CLOSING_DATE = Date.parse("June 8 2018 01:00");
+
 router.use(expressSession({secret:'somesecrettokenhere',
                            saveUninitialized: true,
                            resave: true}));
@@ -34,7 +36,12 @@ router.get('/:id', function(req, res, next) {
                     if (guest_doc) {
                         // Found ID - OK!
                         console.log(guest_doc);
-                        res.render('index', {'id': id, 'message': guest_doc.message});
+                        if (Date.now() < CLOSING_DATE) {
+                            res.render('index', {'id': id, 'message': guest_doc.message});
+                        } else {
+                            res.render('index_time_passed', {'id': id, 'message': guest_doc.message});
+                        }
+
                     } else {
                         // ID not found - put a not found page
                         res.render('invalid_id');
