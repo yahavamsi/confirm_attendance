@@ -3,12 +3,11 @@ extends layout
 block head-content
   -  var title_1 = message + ","
   -  var title_2 = "אישור ההגעה נשלח בהצלחה!"
-  -  var got_that = "קיבלנו ש"
-  -  var not_arriving = "אינכם מגיעים :( אבל מעולה שהודעתם לנו :)"
+  -  var not_arriving = "התקבל אישור על אי הגעתכם :( אבל מעולה שהודעתם לנו :)"
   -  var processed_children = (children == 0) ? "ללא" : children
-  -  var arriving = "מגיעים " + adults + " מבוגרים, " + processed_children + " ילדים וברצונכם לקבל " + veg + " מנות צמחוניות / טבעוניות."
+  -  var arriving = "התקבל אישור על הגעתכם: " + adults + " מבוגרים, " + processed_children + " ילדים וברצונכם לקבל " + veg + " מנות צמחוניות / טבעוניות."
   -  var arrive_message = (adults === "לא מגיעים") ? not_arriving : arriving
-  -  var final_message = got_that + arrive_message
+  -  var final_message = arrive_message
 
 block content
   .container
