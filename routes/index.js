@@ -23,7 +23,8 @@ router.get('/:id', function(req, res, next) {
     const id = req.params.id;
     MongoClient.connect(mongo_url, function(err, client) {
         if (err) {
-            console.log("Error on mongo connection: " + err.message)
+            console.log("Error on mongo connection: " + err.message);
+            res.render('process_error', {error_details: err.message});
         } else {
             console.log("Connected correctly to server");
 
@@ -31,7 +32,8 @@ router.get('/:id', function(req, res, next) {
 
             db.collection('guests').findOne({"id": id}, function (err, guest_doc) {
                 if (err) {
-                    console.log("Error getting ID " + id + " message:" + err.message)
+                    console.log("Error getting ID " + id + " message:" + err.message);
+                    res.render('process_error', {error_details: err.message});
                 } else {
                     if (guest_doc) {
                         // Found ID - OK!
@@ -60,13 +62,14 @@ router.post('/', function(req, res, next) {
     const set_details = {
         "adults": req.body.adults,
         "children": req.body.children,
-        "veg": req.body.veg
+        "veg": req.body.veg,
+        "update_time": Date.now()
     };
 
     MongoClient.connect(mongo_url, function(err, client) {
         if (err) {
             console.log("Error on mongo connection: " + err.message);
-            res.render('invalid_id'); //TODO: replace with error page
+            res.render('process_error', {error_details: err.message});
         } else {
             console.log("Connected correctly to server");
 
@@ -75,7 +78,8 @@ router.post('/', function(req, res, next) {
             // Insert a single document
             db.collection('guests').updateOne({"id": id}, {"$set": set_details}, function (err, guest_doc) {
                 if (err) {
-                    console.log("Error getting ID " + id + " message:" + err.message)
+                    console.log("Error getting ID " + id + " message:" + err.message);
+                    res.render('process_error', {error_details: err.message});
                 } else {
                     if (guest_doc) {
                         // Found ID - OK!
